@@ -101,6 +101,7 @@ type PrepareData struct {
 	ActualRAIDConfig       *metal3v1alpha1.RAIDConfig
 	RootDeviceHints        *metal3v1alpha1.RootDeviceHints
 	FirmwareConfig         *metal3v1alpha1.FirmwareConfig
+	VendorFirmwareConfig   *metal3v1alpha1.VendorFirmware
 	TargetFirmwareSettings metal3v1alpha1.DesiredSettingsMap
 	ActualFirmwareSettings metal3v1alpha1.SettingsMap
 }

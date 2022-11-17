@@ -339,6 +339,10 @@ type BareMetalHostSpec struct {
 	// BIOS configuration for bare metal server
 	Firmware *FirmwareConfig `json:"firmware,omitempty"`
 
+	// TODO: doc
+	// +optional
+	VendorFirmware *VendorFirmware `json:"vendorFirmware,omitempty"`
+
 	// What is the name of the hardware profile for this host? It
 	// should only be necessary to set this when inspection cannot
 	// automatically determine the profile.
@@ -466,6 +470,19 @@ type CustomDeploy struct {
 	// This name is specific to the deploy ramdisk used. If you don't have
 	// a custom deploy ramdisk, you shouldn't use CustomDeploy.
 	Method string `json:"method"`
+}
+
+// TODO doc
+type VendorFirmware struct {
+	// TODO: doc
+	// +optional
+	UpdateNvidiaFirmware *UpdateNvidiaFirmware `json:"updateNvidiaFirmware,omitempty"`
+}
+
+// TODO doc
+type UpdateNvidiaFirmware struct {
+	FirmwareConfigUrl string `json:"firmwareConfigUrl"`
+	FirmwareUrl       string `json:"firmwareUrl"`
 }
 
 // FIXME(dhellmann): We probably want some other module to own these
@@ -774,6 +791,9 @@ type ProvisionStatus struct {
 
 	// The Bios set by the user
 	Firmware *FirmwareConfig `json:"firmware,omitempty"`
+
+	// The vendor firmware config set by the user
+	VendorFirmware *VendorFirmware `json:"vendorFirmware,omitempty"`
 
 	// Custom deploy procedure applied to the host.
 	CustomDeploy *CustomDeploy `json:"customDeploy,omitempty"`

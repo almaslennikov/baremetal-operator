@@ -1290,6 +1290,23 @@ func (p *ironicProvisioner) buildManualCleaningSteps(bmcAccess bmc.AccessDetails
 		)
 	}
 
+	if data.VendorFirmwareConfig != nil {
+		if data.VendorFirmwareConfig.UpdateNvidiaFirmware != nil {
+			cleanSteps = append(
+				cleanSteps,
+				nodes.CleanStep{
+					Interface: nodes.InterfaceDeploy,
+					Step:      "update_nvidia_firmware",
+					Args: map[string]interface{}{
+						"firmware_config": data.VendorFirmwareConfig.UpdateNvidiaFirmware.FirmwareConfigUrl,
+						"firmware_url":    data.VendorFirmwareConfig.UpdateNvidiaFirmware.FirmwareUrl,
+					},
+				},
+			)
+
+		}
+	}
+
 	// TODO: Add manual cleaning steps for host configuration
 
 	return

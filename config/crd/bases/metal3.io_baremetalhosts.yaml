@@ -519,6 +519,21 @@ spec:
                     type: string
                 type: object
                 x-kubernetes-map-type: atomic
+              vendorFirmware:
+                description: 'TODO: doc'
+                properties:
+                  updateNvidiaFirmware:
+                    description: 'TODO: doc'
+                    properties:
+                      firmwareConfigUrl:
+                        type: string
+                      firmwareUrl:
+                        type: string
+                    required:
+                    - firmwareConfigUrl
+                    - firmwareUrl
+                    type: object
+                type: object
             required:
             - online
             type: object
@@ -1083,6 +1098,21 @@ spec:
                     description: An indiciator for what the provisioner is doing with
                       the host.
                     type: string
+                  vendorFirmware:
+                    description: The vendor firmware config set by the user
+                    properties:
+                      updateNvidiaFirmware:
+                        description: 'TODO: doc'
+                        properties:
+                          firmwareConfigUrl:
+                            type: string
+                          firmwareUrl:
+                            type: string
+                        required:
+                        - firmwareConfigUrl
+                        - firmwareUrl
+                        type: object
+                    type: object
                 required:
                 - ID
                 - state

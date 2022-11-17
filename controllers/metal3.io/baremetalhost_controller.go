@@ -1005,10 +1005,11 @@ func (r *BareMetalHostReconciler) actionPreparing(prov provisioner.Provisioner, 
 	}
 
 	prepareData := provisioner.PrepareData{
-		TargetRAIDConfig: newStatus.Provisioning.RAID.DeepCopy(),
-		ActualRAIDConfig: info.host.Status.Provisioning.RAID.DeepCopy(),
-		RootDeviceHints:  newStatus.Provisioning.RootDeviceHints.DeepCopy(),
-		FirmwareConfig:   newStatus.Provisioning.Firmware.DeepCopy(),
+		TargetRAIDConfig:     newStatus.Provisioning.RAID.DeepCopy(),
+		ActualRAIDConfig:     info.host.Status.Provisioning.RAID.DeepCopy(),
+		RootDeviceHints:      newStatus.Provisioning.RootDeviceHints.DeepCopy(),
+		FirmwareConfig:       newStatus.Provisioning.Firmware.DeepCopy(),
+		VendorFirmwareConfig: newStatus.Provisioning.VendorFirmware.DeepCopy(),
 	}
 	// When manual cleaning fails, we think that the existing RAID configuration
 	// is invalid and needs to be reconfigured.
@@ -1403,6 +1404,13 @@ func saveHostProvisioningSettings(host *metal3v1alpha1.BareMetalHost, info *reco
 	if !reflect.DeepEqual(host.Status.Provisioning.Firmware, host.Spec.Firmware) {
 		host.Status.Provisioning.Firmware = host.Spec.Firmware
 		info.log.Info("Firmware settings have changed")
+		dirty = true
+	}
+
+	// Copy vendor firmware settings
+	if !reflect.DeepEqual(host.Status.Provisioning.VendorFirmware, host.Spec.VendorFirmware) {
+		host.Status.Provisioning.VendorFirmware = host.Spec.VendorFirmware
+		info.log.Info("Vendor firmware settings have changed")
 		dirty = true
 	}
 
